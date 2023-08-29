@@ -7,7 +7,8 @@ import playerSpriteUrl from "../../Assets/Sprites/player.png";
 import tileMapJsonUrl from "../../Assets/Tilemaps/Castle/Castle.json?url";
 
 import { Dialog } from "../../Classes/Dialog";
-import tilePngUrl from "../../Assets/Tilemaps/Tiles/Castle2.png";
+import castleTilesPngUrl from "../../Assets/Tilemaps/Tiles/Castle2.png";
+import interiorsTilesPngUrl from "../../Assets/Tilemaps/Tiles/interiors.png";
 import { Player } from "../../Classes/Player";
 
 export default class CastleScene extends Phaser.Scene {
@@ -21,6 +22,7 @@ export default class CastleScene extends Phaser.Scene {
   private groundlayer!: Tilemaps.TilemapLayer;
   private waterlayer!: Tilemaps.TilemapLayer;
   private dynamiclayer!: Tilemaps.TilemapLayer;
+  private interiorlayer!: Tilemaps.TilemapLayer;
   private collidingobjectslayer!: Tilemaps.TilemapLayer;
   private toplayer!: Tilemaps.TilemapLayer;
   private noncollidingobjectslayer!: Tilemaps.TilemapLayer;
@@ -40,7 +42,8 @@ export default class CastleScene extends Phaser.Scene {
     });
 
     //Load tileset
-    this.load.image("castletiles", tilePngUrl);
+    this.load.image("castletiles", castleTilesPngUrl);
+    this.load.image("interiortiles", interiorsTilesPngUrl);
   }
 
   create() {
@@ -70,6 +73,7 @@ export default class CastleScene extends Phaser.Scene {
     this.map = this.add.tilemap("CastleTilemap");
     //add the tileset
     this.map.addTilesetImage("Castle2", "castletiles");
+    this.map.addTilesetImage("HouseInterior", "interiortiles");
     //create the layer
     this.groundlayer = this.map.createLayer("Ground", "Castle2", 0, 0);
     this.collidingobjectslayer = this.map.createLayer(
@@ -78,8 +82,8 @@ export default class CastleScene extends Phaser.Scene {
       0,
       0
     );
-    this.toplayer = this.map.createLayer("Top", "Castle2", 0, 0);
-    this.toplayer.setDepth(200);
+    this.interiorlayer = this.map.createLayer("Interior", "HouseInterior", 0, 0);
+    // this.toplayer.setDepth(200);
     this.map.setCollisionBetween(1, 10000, true, false, "Collision");
     this.physics.add.collider(this.player, this.collidingobjectslayer);
   }
