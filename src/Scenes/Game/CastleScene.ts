@@ -10,6 +10,7 @@ import { Dialog } from "../../Classes/Dialog";
 import castleTilesPngUrl from "../../Assets/Tilemaps/Tiles/Castle2.png";
 import interiorsTilesPngUrl from "../../Assets/Tilemaps/Tiles/interiors.png";
 import furnitureTilesPngUrl from "../../Assets/Tilemaps/Tiles/furniture.png";
+import decorationsTilesPngUrl from "../../Assets/Tilemaps/Tiles/decorative_props.png";
 import { Player } from "../../Classes/Player";
 
 export default class CastleScene extends Phaser.Scene {
@@ -46,6 +47,7 @@ export default class CastleScene extends Phaser.Scene {
     this.load.image("castletiles", castleTilesPngUrl);
     this.load.image("interiortiles", interiorsTilesPngUrl);
     this.load.image("furnituretiles", furnitureTilesPngUrl);
+    this.load.image("decorativetiles", decorationsTilesPngUrl);
   }
 
   create() {
@@ -77,11 +79,12 @@ export default class CastleScene extends Phaser.Scene {
     this.map.addTilesetImage("Castle2", "castletiles");
     this.map.addTilesetImage("HouseInterior", "interiortiles");
     this.map.addTilesetImage("HouseFurniture", "furnituretiles");
+    this.map.addTilesetImage("HouseDecorations", "decorativetiles");
     //create the layer
     this.groundlayer = this.map.createLayer("Ground", "Castle2", 0, 0);
     this.collidingobjectslayer = this.map.createLayer(
       "Collision",
-      ["Castle2", "HouseInterior", "HouseFurniture"],
+      ["Castle2", "HouseInterior", "HouseFurniture", "HouseDecorations"],
       0,
       0
     );
