@@ -9,6 +9,7 @@ import tileMapJsonUrl from "../../Assets/Tilemaps/Castle/Castle.json?url";
 import { Dialog } from "../../Classes/Dialog";
 import castleTilesPngUrl from "../../Assets/Tilemaps/Tiles/Castle2.png";
 import interiorsTilesPngUrl from "../../Assets/Tilemaps/Tiles/interiors.png";
+import furnitureTilesPngUrl from "../../Assets/Tilemaps/Tiles/furniture.png";
 import { Player } from "../../Classes/Player";
 
 export default class CastleScene extends Phaser.Scene {
@@ -44,6 +45,7 @@ export default class CastleScene extends Phaser.Scene {
     //Load tileset
     this.load.image("castletiles", castleTilesPngUrl);
     this.load.image("interiortiles", interiorsTilesPngUrl);
+    this.load.image("furnituretiles", furnitureTilesPngUrl);
   }
 
   create() {
@@ -74,15 +76,16 @@ export default class CastleScene extends Phaser.Scene {
     //add the tileset
     this.map.addTilesetImage("Castle2", "castletiles");
     this.map.addTilesetImage("HouseInterior", "interiortiles");
+    this.map.addTilesetImage("HouseFurniture", "furnituretiles");
     //create the layer
     this.groundlayer = this.map.createLayer("Ground", "Castle2", 0, 0);
     this.collidingobjectslayer = this.map.createLayer(
       "Collision",
-      "Castle2",
+      ["Castle2", "HouseInterior", "HouseFurniture"],
       0,
       0
     );
-    this.interiorlayer = this.map.createLayer("Interior", "HouseInterior", 0, 0);
+    // this.interiorlayer = this.map.createLayer("Interior", "HouseInterior", 0, 0);
     // this.toplayer.setDepth(200);
     this.map.setCollisionBetween(1, 10000, true, false, "Collision");
     this.physics.add.collider(this.player, this.collidingobjectslayer);
